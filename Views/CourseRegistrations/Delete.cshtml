@@ -1,0 +1,20 @@
+﻿@model Student_Management_System.Models.CourseRegistration
+
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <p>Are you sure you want to delete  <strong>@Model.Student.Name</strong><strong> of course </strong>  <strong>@Model.Course.CourseName</strong>?</p>
+                <form asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                    <a href="~/Courses/Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

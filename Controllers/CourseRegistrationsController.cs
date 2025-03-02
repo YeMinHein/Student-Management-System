@@ -86,8 +86,7 @@ namespace Student_Management_System.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseRegistration registration)
         {
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
                     await _registrationService.AddRegistrationAsync(registration);
@@ -100,7 +99,7 @@ namespace Student_Management_System.Controllers
                     TempData["ErrorMessage"] = "Error adding registration";
                     return RedirectToAction("Error", "Home");
                 }
-            }
+            
 
             // In case of ModelState is not valid, return the View with the current model
             ViewBag.Students = new SelectList(await _studentService.GetAllStudentsAsync(), "Id", "Name", registration.StudentId);
@@ -131,24 +130,25 @@ namespace Student_Management_System.Controllers
         }
 
         // POST: CourseRegistrations/DeleteConfirmed
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
                 await _registrationService.DeleteRegistrationAsync(id);
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Registration deleted successfully!";
             }
             catch (Exception ex)
             {
-                // Log the error
                 await _logService.LogAsync("Error", "Error deleting registration.", ex.ToString());
+
                 TempData["ErrorMessage"] = "An error occurred while deleting the registration.";
-                return RedirectToAction("Error", "Home");
-                
             }
+
+            return RedirectToAction(nameof(Index));
         }
-       }
+
+    }
     }
 

@@ -142,9 +142,9 @@ namespace Student_Management_System.Controllers
             }
             catch (Exception ex)
             {
-                await _logService.LogAsync("Error", "Error deleting course.", ex.ToString());
+                await _logService.LogAsync("Error", "Error deleting student.", ex.ToString());
               
-                TempData["ErrorMessage"] = "An error occurred while deleting the course.";
+                TempData["ErrorMessage"] = "An error occurred while deleting the student.";
             }
 
             return RedirectToAction(nameof(Index));

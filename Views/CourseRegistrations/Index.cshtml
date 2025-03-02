@@ -71,9 +71,10 @@
                                 <td>@item.Course.CourseName</td>
                                 <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm delete-btn" data-id="@item.Id">
+                                    <a href="~/CourseRegistrations/Delete/@item.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                                    @*  <button type="submit" class="btn btn-danger btn-sm delete-btn" data-id="@item.Id">
                                         <i class="fas fa-trash"></i> Delete
-                                    </button>
+                                    </button>  *@
                                 </td>
                             </tr>
                         }
