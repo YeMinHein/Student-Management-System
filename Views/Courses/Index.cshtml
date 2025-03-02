@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Student_Management_System.Models.Course>
+
+@{
+    ViewData["Title"] = "Manage Courses";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Course List</h3>
+                <div class="card-tools">
+                    <a href="~/Courses/Create" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Add Course
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Description</th>
+                            <th>Credit Hours</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var course in Model)
+                        {
+                            <tr>
+                                <td>@course.CourseName</td>
+                                <td>@course.Description</td>
+                                <td>@course.CreditHours</td>
+                                <td>
+                                    <a href="~/Courses/Edit/@course.Id" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="~/Courses/Delete/@course.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

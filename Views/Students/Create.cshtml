@@ -1,0 +1,13 @@
+﻿@model Student_Management_System.Models.Student
+
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="Create" method="post">
+            @await Html.PartialAsync("_StudentForm")
+        </form>
+    </div>
+</section>

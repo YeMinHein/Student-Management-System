@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Student_Management_System.Models.Student>
+
+@{
+    ViewData["Title"] = "Manage Students";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Student List</h3>
+                <div class="card-tools">
+                    <a href="~/Students/Create" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> Add Student
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>DOB</th>
+                            <th>Enrollment Date</th>
+                            
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+                                <td>@student.Name</td>
+                                <td>@student.Email</td>
+                                <td>@student.DOB.ToShortDateString()</td>
+                                <td>@student.EnrollmentDate.ToShortDateString()</td>
+                           
+                                <td>
+                                    <a href="~/Students/Edit/@student.Id" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i> Edit</a>
+                                    <a href="~/Students/Delete/@student.Id" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

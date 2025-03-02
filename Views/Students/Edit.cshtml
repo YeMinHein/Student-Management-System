@@ -1,0 +1,14 @@
+﻿@model Student_Management_System.Models.Student
+
+@{
+    ViewData["Title"] = "Edit Student";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
+            @await Html.PartialAsync("_StudentForm")
+        </form>
+    </div>
+</section>
