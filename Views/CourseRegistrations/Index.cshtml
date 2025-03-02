@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Student_Management_System.Models.CourseRegistration>
+
+@{
+    ViewData["Title"] = "Course Registrations";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header bg-primary">
+                <h3 class="card-title"><i class="fas fa-list"></i> Course Registrations</h3>
+                <div class="card-tools">
+                    <a asp-action="Create" class="btn btn-success"><i class="fas fa-plus"></i> Register Course</a>
+                </div>
+            </div>
+
+            <!--Filter Form -->
+            <div class="card-body">
+                <form asp-action="Index" method="get">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" name="startDate" class="form-control" value="@Context.Request.Query["startDate"]" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="endDate">End Date</label>
+                            <input type="date" name="endDate" class="form-control" value="@Context.Request.Query["endDate"]" />
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="studentId">Student</label>
+                            <select name="studentId" class="form-control" asp-items="ViewBag.Students">
+                                <option value="0">All Students</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="courseId">Course</label>
+                            <select name="courseId" class="form-control" asp-items="ViewBag.Courses">
+                                <option value="0">All Courses</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Filter</button>
+                            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-sync"></i> Reset</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+          
+            <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Course Name</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Student.Name</td>
+                                <td>@item.Course.CourseName</td>
+                                <td>@item.CreatedDate.ToString("yyyy-MM-dd")</td>
+                                <td>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-id="@item.Id">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
