@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Student_Management_System.IServices;
 using Student_Management_System.Models;
+using Student_Management_System.Services;
 
 namespace Student_Management_System.Controllers
 {
@@ -113,22 +114,13 @@ namespace Student_Management_System.Controllers
             return View(student);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
-                var student = await _studentService.GetStudentByIdAsync(id.Value);
-                if (student == null)
-                {
-                    return NotFound();
-                }
-
-                return View(student);
+                var course = await _studentService.GetStudentByIdAsync(id);
+                if (course == null) return NotFound();
+                return View(course);
             }
             catch (Exception ex)
             {
@@ -136,22 +128,23 @@ namespace Student_Management_System.Controllers
                 TempData["ErrorMessage"] = "An error occurred while fetching the student details.";
                 return RedirectToAction(nameof(Index));
             }
+
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             try
             {
                 await _studentService.DeleteStudentAsync(id);
-                await _logService.LogAsync("Information", "Student " + id + " deleted successfully.");
                 TempData["SuccessMessage"] = "Student deleted successfully!";
             }
             catch (Exception ex)
             {
-                await _logService.LogAsync("Error", "EError deleting student.", ex.ToString());
-                TempData["ErrorMessage"] = "An error occurred while deleting the student.";
+                await _logService.LogAsync("Error", "Error deleting course.", ex.ToString());
+              
+                TempData["ErrorMessage"] = "An error occurred while deleting the course.";
             }
 
             return RedirectToAction(nameof(Index));
